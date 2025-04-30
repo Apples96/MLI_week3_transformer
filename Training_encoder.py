@@ -86,7 +86,7 @@ def train_encoder_model():
     optimizer = optim.Adam(model.parameters(), lr=0.0003)
 
     # Training
-    epochs = 10
+    epochs = 3
     for epoch in range(epochs):
         model.train()
         epoch_train_loss = 0
@@ -116,7 +116,7 @@ def train_encoder_model():
             img, label = test_dataset[idx]
             label_tensor = torch.tensor(label)
             img_patches, patches_pos, img_height, img_width = Tokenize_and_CLS_img(img)
-            CLStoken_logits = model(img_patches)
+            CLStoken_logits, encoder_hidden_state = model(img_patches)
             loss = criterion(CLStoken_logits, label_tensor)
             epoch_test_loss += loss.item()
             pred = F.softmax(CLStoken_logits, dim=0).argmax(dim=0, keepdim=True)
