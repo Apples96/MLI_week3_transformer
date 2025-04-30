@@ -103,9 +103,9 @@ class VisionTransformerEncoderDecoder(nn.Module):
         self.ff1 = nn.Linear(self.embed_dim, self.embed_dim) 
         self.ff2 = nn.Linear(self.embed_dim, self.vocab_size) 
 
-    def forward(self, img, labels): 
+    def forward(self, img_patches, labels): 
         # Get the encoder hidden states
-        CLStoken_logits, encoder_hidden_state = self.encoder_model(img)
+        CLStoken_logits, encoder_hidden_state = self.encoder_model(img_patches)
 
         # Go through the decoder layers
         x = self.embedding(labels) # (17*12) @ (12*64) + (12*64) > (17*64) (12 is vocab_size 10 digits + SOS + EOS ; 17 is sequence length ie 4*4 digit tokens + 1 SOS/EOS token)
