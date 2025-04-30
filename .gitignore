@@ -1,0 +1,7 @@
+.env
+/models
+/jupyter
+/data
+__pycache__
+venvMLIw3
+*.png
